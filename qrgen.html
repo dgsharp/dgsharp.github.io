@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>QR Note Link Generator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      max-width: 600px;
+      margin: auto;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      font-size: 1em;
+    }
+    input[type="text"] {
+      width: 100%;
+      font-size: 1em;
+      margin-top: 1em;
+    }
+    .url-box {
+      margin-top: 1em;
+      background: #f4f4f4;
+      padding: 1em;
+      border-radius: 8px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <h1>QR Note Link Generator</h1>
+  <p>Type your note below:</p>
+  <textarea id="noteInput" placeholder="e.g., Drawer 34: 20mm bolt, grade 8.8"></textarea>
+  
+  <p>Base viewer URL:</p>
+  <input type="text" id="baseURL" value="https://dgsharp.github.io/qr.html">
+
+  <button onclick="generateLink()">Generate Link</button>
+
+  <div class="url-box" id="output" hidden>
+    <h2>Encoded URL:</h2>
+    <p><a href="#" target="_blank" id="linkPreview"></a></p>
+  </div>
+
+  <script>
+    function generateLink() {
+      const note = document.getElementById("noteInput").value.trim();
+      const base = document.getElementById("baseURL").value.trim();
+      const encoded = encodeURIComponent(note);
+      const fullURL = base.replace(/\/+$/, '') + "#" + encoded;
+
+      const output = document.getElementById("output");
+      const link = document.getElementById("linkPreview");
+
+      link.href = fullURL;
+      link.textContent = fullURL;
+      output.hidden = false;
+    }
+  </script>
+</body>
+</html>
