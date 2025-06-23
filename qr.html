@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>QR Note Viewer</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      max-width: 600px;
+      margin: auto;
+    }
+    #note {
+      white-space: pre-wrap;
+      font-size: 1.2em;
+      background: #f4f4f4;
+      padding: 1em;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>QR Note</h1>
+  <div id="note">Loading...</div>
+
+  <script>
+    function decodeNoteFromHash() {
+      const hash = decodeURIComponent(window.location.hash.slice(1));
+      const note = hash || "No note provided in URL.";
+      document.getElementById("note").textContent = note;
+    }
+
+    // Run on page load
+    decodeNoteFromHash();
+
+    // Optional: update dynamically if hash changes without reload
+    window.addEventListener("hashchange", decodeNoteFromHash);
+  </script>
+</body>
+</html>
